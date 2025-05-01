@@ -1,0 +1,12 @@
+services:
+  # A web service for the Flask API and webhooks
+  - type: web
+    name: telegram-screenshot-bot
+    env: python
+    buildCommand: pip install flask flask-sqlalchemy gunicorn opencv-python python-telegram-bot python-dotenv psycopg2-binary
+    startCommand: gunicorn --bind 0.0.0.0:$PORT main:app
+    envVars:
+      - key: TELEGRAM_TOKEN
+        sync: false
+      - key: WEBHOOK_URL
+        sync: false
